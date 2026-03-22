@@ -90,7 +90,7 @@ if uploaded_audio is not None:
 
         with open(temp_audio_path, "rb") as audio_file:
             transcription = client.audio.transcriptions.create(
-                model="gpt-4o-mini-transcribe",
+                model="whisper-1",
                 file=audio_file
             )
     
