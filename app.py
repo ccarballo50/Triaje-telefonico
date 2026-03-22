@@ -1,5 +1,4 @@
 import streamlit as st
-import whisper
 import tempfile
 import os
 
@@ -89,11 +88,13 @@ if uploaded_audio is not None:
     # Transcripción Whisper
     with st.spinner("Transcribiendo audio..."):
 
-        model = whisper.load_model("base")
-
-        result = model.transcribe(temp_audio_path)
-
-    texto_transcrito = result["text"]
+        with open(temp_audio_path, "rb") as audio_file:
+            transcription = client.audio.transcriptions.create(
+                model="gpt-4o-mini-transcribe",
+                file=audio_file
+            )
+    
+        texto_transcrito = transcription.text
 
     st.write(texto_transcrito)
 
