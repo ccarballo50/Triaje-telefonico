@@ -88,7 +88,18 @@ if uploaded_audio is not None:
     # Transcripción Whisper
     with st.spinner("Transcribiendo audio..."):
 
-        with open(temp_audio_path, "rb") as audio_file:
+        # Obtener extensión original
+        file_extension = uploaded_audio.name.split(".")[-1]
+    
+        # Crear nombre correcto
+        temp_filename = f"audio_temp.{file_extension}"
+    
+        # Guardar archivo
+        with open(temp_filename, "wb") as f:
+            f.write(uploaded_audio.getbuffer())
+    
+        # Enviar a OpenAI
+        with open(temp_filename, "rb") as audio_file:
             transcription = client.audio.transcriptions.create(
                 model="whisper-1",
                 file=audio_file
