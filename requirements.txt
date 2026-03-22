@@ -1,6 +1,4 @@
 streamlit
 openai
-openai-whisper
 python-dotenv
 imageio-ffmpeg
-torch
